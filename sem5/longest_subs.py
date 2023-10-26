@@ -1,6 +1,3 @@
-import string
-
-
 def lengthOfLongestSubstring(s: str) -> int:
     t = ''
     mp = dict(zip(s, [-1] * len(s)))
