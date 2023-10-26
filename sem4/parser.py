@@ -8,23 +8,21 @@ def parse(
         string = string.replace(v[1], ' ' + v[1])
     a = string.split()
 
-
+    vars = set()
     for i in range(1, len(a) - 1):
         if not a[i].isalpha(): continue
 
-        if a[i - 1][-3:] == a[i + 1][0] + a[i + 1][2:4] and a[i + 1][1] == '/':
-            ans.append(a[i])
+        if a[i - 1][a[i - 1].rfind('<') + 1:-1] == a[i + 1][a[i + 1].find('<') + 2:a[i + 1].find('>')] \
+           and a[i + 1][1] == '/' or \
+           a[i - 1][a[i - 1].rfind('<') + 2:-1] == a[i + 1][a[i + 1].find('<') + 1:a[i + 1].find('>')] \
+           and a[i - 1][a[i - 1].rfind('<') + 1] == '/':
+            if a[i] not in vars: ans.append(a[i])
 
-
-    return list(set(ans))
-
-
+    return ans
 
 
 string = (
-    "</p><p><a>float</b></p><p><b>frozenset</b>"
-    "</p><p><c>list</c></p><p><b>list</b>"
+    "</a>this<a></b>is<b><a>good</a><c>example</c>"
 )
-valid_pairs = [("<a>", "</a>"), ("<b>", "</b>"), ("<c>", "</c>")]
-
-assert parse(string, valid_pairs) == ["frozenset", "list"]
+valid_pairs =  [('<a>', '</a>'), ('</a>', '<a>'), ('</b>', '<b>'), ('<c>', '</c>')]
+assert parse(string, valid_pairs) == ['this', 'is', 'good', 'example']
