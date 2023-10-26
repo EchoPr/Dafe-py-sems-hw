@@ -24,15 +24,22 @@ def lev(a: str, b: str) -> int:
 
 
 def check_comand(user_comand: str, comands: list[str]) -> bool:
+    if user_comand in comands:
+        return True
+
     cnt = 0
     for c in comands:
         if lev(c, user_comand) <= 1:
             cnt += 1
-        if cnt > 1:
-            return False
+    if cnt != 1:
+        return False 
         
     return True
 
 
 assert check_comand('gt', ['cd', 'ls', 'git']) 
 assert not check_comand('gt', ['cd', 'ls', 'git', 'get'])
+assert not check_comand("getting", ['cd', 'ls', 'git', 'get'])
+assert check_comand("get", ['cd', 'ls', 'git', 'get'])
+assert check_comand("wget", ['cd', 'ls', 'get', 'wget'])
+assert not check_comand("rm", ['cd', 'ls', 'git', 'wget'])
