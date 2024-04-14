@@ -8,7 +8,7 @@ x = np.linspace(-10, 10, 100)
 y = np.linspace(-10, 10, 100)
 
 x, y = np.meshgrid(x, y)
-t = x**2 + y**2
+t = np.sqrt(x**2 + y**2)
 z = np.sin(t) / t
 
 surf = ax.plot_surface(x, y, z, cmap=cm.viridis, vmin=z.min() * 2)
